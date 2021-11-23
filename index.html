@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Code Player</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="jqueryUI/jquery-ui.js"></script>
+    <link href="jqueryUI/jquery-ui.css" rel="stylesheet">
+    <style media="screen">
+      #header{
+        height: 70px;
+        display: flex;
+        align-items: center;
+      }
+      #header h1{
+        float:left;
+        margin-left: 1vw;
+        width: 9vw;
+      }
+      #selector{
+        float: left;
+        position: relative;
+        left: 27vw;
+      }
+      #selector button{
+        height: 40px;
+        width: 80px;
+        background-color: #eee;
+        font-weight: bold;
+        line-height: 40px;
+        font-size: 20px;
+        margin: 10px;
+      }
+      #mainArea{
+        width: 100%;
+        height: 40.5vw;
+        background-color: #eee;
+        display: flex;
+
+      }
+      .panel{
+        float: left;
+        flex-grow: 1;
+        border: 1px black solid;
+        display: flex;
+        flex-direction: column;
+      }
+      .panel span{
+        display: block;
+        padding-left: 5px;
+        border-bottom: 2px aqua solid;
+      }
+      .panel textarea{
+        resize: none;
+        flex-grow: 1;
+        overflow: scroll;
+        word-wrap: normal;
+        white-space: pre;
+      }
+      #output{
+        flex-grow: 1;
+      }
+      #output iframe{
+      flex-grow: 1;
+      margin: 0px;
+      padding: 0px;
+      overflow: scroll;
+      background-color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="" id="header">
+      <h1>CodePlayer</h1>
+      <nav id="selector">
+        <button type="button" name="button" value="html">HTML</button>
+        <button type="button" name="button" value="css">CSS</button>
+        <button type="button" name="button" value="js">JS</button>
+        <button type="button" name="button" value="output">OutPut</button>
+      </nav>
+    </div>
+    <hr>
+    <div class="" id="mainArea">
+      <div class="panel" id="html">
+        <span>HTML</span>
+        <textarea name="html"></textarea>
+      </div>
+      <div class="panel" id="css">
+        <span>CSS</span>
+        <textarea name="css"></textarea>
+      </div>
+      <div class="panel" id="js">
+        <span>JS</span>
+        <textarea name="js"></textarea>
+      </div>
+      <div class="panel" id="output">
+        <span>Output</span>
+        <iframe srcdoc=""></iframe>
+      </div>
+    </div>
+    <script type="text/javascript">
+    let h="",c="",j="";
+    $("#selector>button").click(function() {
+      $("#"+$(this).val()).toggle();
+    });
+    $(".panel").resizable({
+      minHeight:$("#mainArea").height(),
+      maxHeight:$("#mainArea").height(),
+      handles:"e"
+    });
+    $(".panel>textarea").keyup(function(){
+      let temp=$(this).attr("name");
+      if(temp=="html"){
+        h=$("#html>textarea").val();
+      }
+      else if(temp=="css"){
+        c=$("#css>textarea").val();
+      }
+      else{
+        j=$("#js>textarea").val();
+      }
+      $(".panel>iframe").attr("srcdoc",h+"<style>"+c+"</style>"+"<script>"+j+"</scr"+"ipt>");
+    })
+    </script>
+  </body>
+</html>
